@@ -1,0 +1,13 @@
+You have successfully booked your flight.
+============================================
+
+Here is an overview over your booking:
+
+Passenger name: <%= @passenger.name %>
+From: <%= @flight.from_airport.airport_code %>
+To: <%= @flight.to_airport.airport_code %>
+Date: <%= @flight.start_datetime.strftime("%m/%d/%Y") %>
+Time: <%= @flight.start_datetime.strftime("%H:%M") %>
+Duration: <%= @flight.flight_duration/60 %> minutes
+
+Thank you for booking with us and have a great trip!

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>
+      You have successfully booked your flight.
+    </h1>
+    <p>
+      Here is an overview over your booking:
+      <ul>
+        <li> Passenger name: <%= @passenger.name %></li>
+        <li> From: <%= @flight.from_airport.airport_code %></li>
+        <li> To: <%= @flight.to_airport.airport_code %></li>
+        <li> Date: <%= @flight.start_datetime.strftime("%m/%d/%Y") %></li>
+        <li> Time: <%= @flight.start_datetime.strftime("%H:%M") %></li>
+        <li> Duration: <%= @flight.flight_duration/60 %> minutes</li>
+      </ul>
+    </p>
+    <p>Thank you for booking with us and have a great trip!</p>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+<h1> Your booking </h1>
+<p> From: <%= @booking.flight.from_airport.airport_code %></p>
+<p> To: <%= @booking.flight.to_airport.airport_code %></p>
+<p> Date: <%= @booking.flight.start_datetime.strftime("%m/%d/%Y") %></p>
+<p> Time: <%= @booking.flight.start_datetime.strftime("%H:%M") %></p>
+<p> Duration: <%= @booking.flight.flight_duration/60 %> minutes</p>
+<div> Passengers:
+  <% @booking.passengers.each do |p|%>
+    <p> Name: <%= p.name %> <p>
+    <p> Email: <%= p.email %> <p>
+  <% end %>
+</div>
+<%= link_to "New flight search", root_path %>

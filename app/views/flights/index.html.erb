@@ -1,0 +1,37 @@
+<h1> Choose your flight </h1>
+
+<%= form_tag("/flights", method: "get") do %>
+  FROM airport: <%= select_tag(:from_code, options_for_select(@airport_options, params[:from_code])) %>
+  <br><br>
+  TO airport: <%= select_tag(:to_code, options_for_select(@airport_options, params[:to_code])) %>
+  <br><br>
+  Number of passengers: <%= select_tag(:num_tickets, options_for_select(@passenger_options, params[:num_tickets])) %>
+  <br><br>
+  Date: <%= select_tag(:date, options_for_select(@date_options, params[:date])) %>
+  <br><br>
+  <% submit_text = params[:from_code] ? "Modify search" : "Search" %>
+  <%= submit_tag(submit_text) %>
+<% end %>
+
+<br><br>
+
+<% if params[:from_code] %>
+  <h1> Flight options </h1>
+  <% if flight_options.empty? %>
+  <p> No flights found. Please modify your search. </p>
+  <% else %>
+    <%= form_tag("/bookings/new", method: "get") do %>
+      <% flight_options.each_with_index do |fo, index| %>
+        <p>
+          <% checked_value = index == 0 ? true : false %>
+          <%= radio_button_tag(:flight_id, fo.id, checked = checked_value) %> <%= fo.from_airport.airport_code %> to <%= fo.to_airport.airport_code %>,
+          date: <%= fo.start_datetime.strftime("%m/%d/%Y") %>, time: <%= fo.start_datetime.strftime("%H:%M") %>, duration:  <%= fo.flight_duration/60 %> minutes
+        </p>
+      <% end %>
+      <p> Number of passengers: <%=params[:num_tickets] %>
+      <%= hidden_field_tag(:num_tickets, value = params[:num_tickets]) %>
+      <br><br>
+      <%= submit_tag("Select flight") %>
+    <% end %>
+  <% end %>
+<% end %>
